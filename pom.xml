@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.0</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.pointsmall</groupId>
+  <artifactId>points-mall-thirdparty-connector</artifactId>
+  <version>0.1.0</version>
+  <name>points-mall-thirdparty-connector</name>
+  <description>Points Mall ThirdParty Connector Service (Spring Boot WebFlux)</description>
+
+  <properties>
+    <java.version>25</java.version>
+  </properties>
+
+  <dependencies>
+    <!--
+      spring-boot-starter-webflux:
+        包含 Spring WebFlux（响应式 Web 框架）+ Netty（非阻塞服务器）+ WebClient（非阻塞 HTTP 客户端）。
+        Controller 注解写法和普通 Spring MVC 完全相同（@RestController / @GetMapping 等），
+        区别仅在于方法返回类型改为 Mono<T> 或 Flux<T>。
+        适合 ThirdParty Connector 场景：需要调用 GitHub 等外部 API，非阻塞 IO 性能更好。
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- reactor-test: 专门用于测试 Mono/Flux 的工具类 StepVerifier -->
+    <dependency>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

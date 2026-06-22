@@ -1,0 +1,7 @@
+server:
+  port: ${PORT:8082}
+
+spring:
+  application:
+    name: points-mall-thirdparty-connector
+  # WebFlux 默认使用 Netty 作为服务器（非阻塞），无需额外配置

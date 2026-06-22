@@ -19,14 +19,20 @@
 - **Graceful Degradation** — returns a structured fallback response on third-party unavailability instead of propagating raw errors upstream
 - **Secret Centralization** — all API keys, OAuth client secrets, and AWS credentials live only in this service's environment config
 
+## Why This Tech Stack
+
+This service exists to call external APIs — GitHub OAuth, AWS S3, Amazon Product API, SendGrid. Every operation is a non-blocking HTTP call to a remote system. Spring Boot WebFlux with `WebClient` is the correct model for this workload: reactive, non-blocking IO means a small thread pool handles many concurrent external calls without blocking.
+
+This is also the concrete use case that justifies learning WebFlux: `WebClient.get().uri(...).retrieve().bodyToMono(GithubUser.class)` is the idiomatic pattern for calling GitHub's API reactively. Spring Boot 4.1 (Java 25) brings the most mature WebFlux runtime to date, with Reactor 2025.0 under the hood.
+
 ## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Node.js 20, Express 4, TypeScript |
-| AWS | `@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner` |
-| Email | `@sendgrid/mail` |
-| HTTP Client | Axios (Amazon API, GitHub API) |
+| Framework | Java 25, Spring Boot 4.1 WebFlux (Netty) |
+| Reactive | Project Reactor (Reactor 2025.0), Mono / Flux |
+| AWS | AWS SDK for Java v2 (`S3Client`, `S3Presigner`) |
+| HTTP Client | `WebClient` (non-blocking, replaces Axios / RestTemplate) |
 | Auth | Internal HMAC shared-secret (called only by BFF, not exposed to frontend) |
 
 ## Local Development
