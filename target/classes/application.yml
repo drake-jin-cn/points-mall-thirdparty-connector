@@ -4,4 +4,6 @@ server:
 spring:
   application:
     name: points-mall-thirdparty-connector
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   # WebFlux 默认使用 Netty 作为服务器（非阻塞），无需额外配置
