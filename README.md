@@ -1,6 +1,6 @@
 # points-mall-thirdparty-connector
 
-> Lightweight Node.js aggregation service — the **single integration point** for all external platforms. Business services never talk to third-party APIs directly; every external call is routed through here.
+> Java Spring Boot WebFlux aggregation service — the **single integration point** for all external platforms. Business services never talk to third-party APIs directly; every external call is routed through here.
 
 ## Integrated Platforms
 
@@ -35,12 +35,24 @@ This is also the concrete use case that justifies learning WebFlux: `WebClient.g
 | HTTP Client | `WebClient` (non-blocking, replaces Axios / RestTemplate) |
 | Auth | Internal HMAC shared-secret (called only by BFF, not exposed to frontend) |
 
-## Local Development
+## Code Quality
 
 ```bash
-pnpm install
-pnpm run dev
+mvn spotless:check  # Check formatting (google-java-format)
+mvn spotless:apply  # Auto-fix formatting
+```
+
+Formatting runs automatically on staged `.java` files via the pre-commit hook. CI (`mvn verify`) runs on every PR via `.github/workflows/ci.yml` in this repository.
+
+## Local Development
 # API: http://localhost:8084
+```
+
+## Docker
+
+```bash
+docker build -t points-mall-thirdparty-connector .
+docker run --env-file .env.dev -p 8084:8084 points-mall-thirdparty-connector
 ```
 
 ## Key Environment Variables
