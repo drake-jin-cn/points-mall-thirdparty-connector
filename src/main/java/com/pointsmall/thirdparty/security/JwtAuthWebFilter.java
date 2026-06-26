@@ -16,9 +16,9 @@ import reactor.core.publisher.Mono;
 /**
  * Reactive WebFilter that validates JWT Bearer tokens on all routes except /health.
  *
- * <p>Flow: - Skip /health (no auth required) - Read Authorization header - Missing or non-Bearer
- * -> 401 - Verify JWT signature + expiry (JJWT) - Invalid -> 401 with { code, message, data } -
- * Valid -> set userId attribute and continue chain
+ * <p>Flow: - Skip /health (no auth required) - Read Authorization header - Missing or non-Bearer ->
+ * 401 - Verify JWT signature + expiry (JJWT) - Invalid -> 401 with { code, message, data } - Valid
+ * -> set userId attribute and continue chain
  */
 public class JwtAuthWebFilter implements WebFilter {
 

@@ -15,15 +15,14 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 /**
  * Integration tests for JwtAuthWebFilter.
  *
- * Uses WebEnvironment.RANDOM_PORT + @LocalServerPort to build WebTestClient manually,
- * which is the recommended pattern in Spring Boot 4.x.
+ * <p>Uses WebEnvironment.RANDOM_PORT + @LocalServerPort to build WebTestClient manually, which is
+ * the recommended pattern in Spring Boot 4.x.
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class JwtAuthWebFilterTest {
 
   private static final String SECRET = "dev-insecure-secret-at-least-32-chars!!";
-  private static final SecretKey KEY =
-      Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+  private static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
   @LocalServerPort private int port;
 
